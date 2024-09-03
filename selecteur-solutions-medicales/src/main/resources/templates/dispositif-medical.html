@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dispositifs Médicaux</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #007bff;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+        }
+        .filter-form input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Dispositifs Médicaux</h2>
+    
+    <!-- Filter Form -->
+    <form th:action="@{/dispositif-medical}" method="get" class="filter-form">
+        <input type="text" name="type" placeholder="Type" th:value="${param.type}" />
+        <input type="text" name="surface" placeholder="Surface" th:value="${param.surface}" />
+        <button type="submit">Filtrer</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Nom</th>
+                <th>Surface</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="dispositif : ${dispositifs}">
+                <td th:text="${dispositif.id}"></td>
+                <td th:text="${dispositif.type}"></td>
+                <td th:text="${dispositif.name}"></td>
+                <td th:text="${dispositif.surface}"></td>
+                <td>
+                    <a th:href="@{/admin/dispositif-medical/edit/{id}(id=${dispositif.id})}">Modifier</a>
+                    <a th:href="@{/admin/dispositif-medical/delete/{id}(id=${dispositif.id})}">Supprimer</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/hibatach">Retour à l'accueil</a>
+</body>
+</html>

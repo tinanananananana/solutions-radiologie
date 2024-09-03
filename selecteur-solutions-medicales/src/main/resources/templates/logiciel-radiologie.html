@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Logiciels de Radiologie</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: #fff;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+        h2 {
+            color: #007bff;
+        }
+        .filter-form {
+            margin-bottom: 20px;
+        }
+        .filter-form input {
+            padding: 8px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Logiciels de Radiologie</h2>
+    
+    <!-- Filter Form -->
+    <form th:action="@{/logiciel-radiologie}" method="get" class="filter-form">
+        <input type="text" name="category" placeholder="Category" th:value="${param.category}" />
+        <input type="text" name="platform" placeholder="Platform" th:value="${param.platform}" />
+        <button type="submit">Filtrer</button>
+    </form>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Version</th>
+                <th>Compatibilité OS</th>
+                <th>Prix</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="logiciel : ${logiciels}">
+                <td th:text="${logiciel.id}"></td>
+                <td th:text="${logiciel.name}"></td>
+                <td th:text="${logiciel.version}"></td>
+                <td th:text="${logiciel.osCompatibility}"></td>
+                <td th:text="${logiciel.price}"></td>
+                <td>
+                    <a th:href="@{/admin/logiciel-radiologie/edit/{id}(id=${logiciel.id})}">Modifier</a>
+                    <a th:href="@{/admin/logiciel-radiologie/delete/{id}(id=${logiciel.id})}">Supprimer</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/hibatach">Retour à l'accueil</a>
+</body>
+</html>
